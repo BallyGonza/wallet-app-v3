@@ -14,8 +14,8 @@ void main() {
     WidgetsFlutterBinding.ensureInitialized();
 
     // Initialize services
-    await Future.wait([
-      HiveService.initializeHive(),
+    await Future.wait<void>([
+      DatabaseService.initialize(),
       SystemChromeService.setSystemChrome(),
     ]);
 

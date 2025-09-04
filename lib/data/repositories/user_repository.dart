@@ -1,27 +1,49 @@
-import 'package:hive/hive.dart';
 import 'package:template_app/data/data.dart';
+import 'package:template_app/services/database_service.dart';
 
 class UserRepository {
   UserRepository();
 
-  final Box<UserModel> box = Hive.box<UserModel>('users_box');
-
-  // get user from box
+  // Get user from database (returns first user or creates default)
   Future<UserModel> getUser() async {
-    if (box.isEmpty) {
-      await saveUser(defaultUser);
-      return box.getAt(0)!;
+    final users = await DatabaseService.getAllUsers();
+    if (users.isEmpty) {
+      final userId = await DatabaseService.insertUser(defaultUser);
+      return defaultUser.copyWith(id: userId);
     } else {
-      return box.getAt(0)!;
+      return users.first;
     }
   }
 
-  // save user to box
-  Future<void> saveUser(UserModel user) async {
-    await box.put(user.id, user);
+  // Get user by ID
+  Future<UserModel?> getUserById(int id) async {
+    return await DatabaseService.getUser(id);
+  }
+
+  // Save user to database
+  Future<UserModel> saveUser(UserModel user) async {
+    if (user.id == null) {
+      // Insert new user
+      final userId = await DatabaseService.insertUser(user);
+      return user.copyWith(id: userId);
+    } else {
+      // Update existing user
+      await DatabaseService.updateUser(user);
+      return user;
+    }
+  }
+
+  // Delete user
+  Future<void> deleteUser(int id) async {
+    await DatabaseService.deleteUser(id);
+  }
+
+  // Get all users
+  Future<List<UserModel>> getAllUsers() async {
+    return await DatabaseService.getAllUsers();
   }
 }
 
 UserModel defaultUser = UserModel(
-  id: 0,
+  name: 'Default User',
 );
