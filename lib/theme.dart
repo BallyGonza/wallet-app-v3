@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:template_app/data/constants/colors.dart';
+import 'package:template_app/core/constants/colors.dart';
 
 ThemeData appThemeLight = ThemeData(
   scaffoldBackgroundColor: LightThemeColors.backgroundColor,
@@ -84,7 +84,7 @@ ThemeData appThemeLight = ThemeData(
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
     },
   ),
-  dialogTheme: DialogTheme(
+  dialogTheme: DialogThemeData(
     backgroundColor: LightThemeColors.primaryColor,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
   ),
@@ -185,7 +185,7 @@ ThemeData appThemeDark = ThemeData(
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
     },
   ),
-  dialogTheme: DialogTheme(
+  dialogTheme: DialogThemeData(
     backgroundColor: DarkThemeColors.backgroundColor,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
   ),
