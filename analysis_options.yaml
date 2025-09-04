@@ -1,0 +1,8 @@
+include: package:very_good_analysis/analysis_options.yaml
+linter:
+  rules:
+    sort_constructors_first: true
+    unnecessary_await_in_return: false
+    sort_pub_dependencies: false
+    flutter_style_todos: false
+    public_member_api_docs: false
